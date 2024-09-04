@@ -681,8 +681,6 @@ ALTER TABLE ONLY "public"."pie_contract_report"
 ALTER TABLE ONLY "public"."user_roles"
     ADD CONSTRAINT "user_roles_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "auth"."users"("id") ON DELETE CASCADE;
 
-CREATE POLICY "Allow auth admin to read user roles" ON "public"."user_roles" FOR SELECT TO "supabase_auth_admin" USING (true);
-
 CREATE POLICY "Enable  access for all users" ON "public"."cities" USING (true);
 
 CREATE POLICY "Enable access for all users" ON "public"."ad_details" USING (true);
@@ -746,8 +744,6 @@ ALTER TABLE "public"."rentals" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "public"."short_calendar" ENABLE ROW LEVEL SECURITY;
 
 ALTER TABLE "public"."short_rentals" ENABLE ROW LEVEL SECURITY;
-
-ALTER TABLE "public"."user_roles" ENABLE ROW LEVEL SECURITY;
 
 GRANT USAGE ON SCHEMA "public" TO "postgres";
 GRANT USAGE ON SCHEMA "public" TO "anon";
@@ -908,6 +904,7 @@ GRANT ALL ON SEQUENCE "public"."short_rentals_id_seq" TO "authenticated";
 GRANT ALL ON SEQUENCE "public"."short_rentals_id_seq" TO "service_role";
 
 GRANT ALL ON TABLE "public"."user_roles" TO "service_role";
+GRANT ALL ON SEQUENCE "public"."user_roles" TO "authenticated";
 GRANT ALL ON TABLE "public"."user_roles" TO "supabase_auth_admin";
 
 GRANT ALL ON SEQUENCE "public"."user_roles_id_seq" TO "anon";
