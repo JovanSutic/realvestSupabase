@@ -40,13 +40,4 @@ revoke execute
 
 grant all
   on table public.user_roles
-to supabase_auth_admin;
-
-revoke all
-  on table public.user_roles
-  from authenticated, anon, public;
-
-create policy "Allow auth admin to read user roles" ON public.user_roles
-as permissive for select
-to supabase_auth_admin
-using (true)
+to supabase_auth_admin, authenticated, anon, public;
