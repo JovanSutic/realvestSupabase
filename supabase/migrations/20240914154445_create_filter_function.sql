@@ -20,7 +20,8 @@ CREATE TYPE apartment_detail_profitability AS (
     profitability_ad_id bigint
 );
 
-CREATE OR REPLACE FUNCTION get_apartments_with_details_and_profitability()
+CREATE OR REPLACE FUNCTION get_apartments_with_details_and_profitability(p_limit INTEGER,
+    p_offset INTEGER)
 RETURNS SETOF apartment_detail_profitability AS $$
 BEGIN
     RETURN QUERY
@@ -50,8 +51,25 @@ FROM
   JOIN ad_profitability p ON a.id = p.ad_id
 WHERE
   a.is_photo = true
-LIMIT
-  20;
+LIMIT p_limit OFFSET p_offset;
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION get_apartments_count()
+RETURNS BIGINT AS $$
+DECLARE
+    total_count BIGINT;
+BEGIN
+    -- Get the total count of records that match the filters
+    SELECT COUNT(*)
+    INTO total_count
+    FROM
+        apartments a
+        JOIN ad_details d ON a.id = d.ad_id
+        JOIN ad_profitability p ON a.id = p.ad_id
+    WHERE
+        a.is_photo = true;
+
+    RETURN total_count;
+END;
+$$ LANGUAGE plpgsql;
