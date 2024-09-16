@@ -51,7 +51,11 @@ FROM
   JOIN ad_profitability p ON a.id = p.ad_id
 WHERE
   a.is_photo = true
-LIMIT p_limit OFFSET p_offset;
+  AND d.type = 'apartment'
+ORDER BY
+  a.id
+LIMIT p_limit 
+OFFSET p_offset;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -68,7 +72,8 @@ BEGIN
         JOIN ad_details d ON a.id = d.ad_id
         JOIN ad_profitability p ON a.id = p.ad_id
     WHERE
-        a.is_photo = true;
+        a.is_photo = true
+        AND d.type = 'apartment';
 
     RETURN total_count;
 END;
