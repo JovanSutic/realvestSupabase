@@ -20,8 +20,15 @@ CREATE TYPE apartment_detail_profitability AS (
     profitability_ad_id bigint
 );
 
+-- DROP FUNCTION get_apartments_with_details_and_profitability(
+--     integer, integer, integer, integer, integer, integer, integer, integer, integer, float, text
+-- );
+-- DROP FUNCTION get_apartments_count(
+--     integer, integer, integer, integer, integer, integer, integer, float, text
+-- );
+
 CREATE OR REPLACE FUNCTION get_apartments_with_details_and_profitability(p_limit INTEGER,
-    p_offset INTEGER)
+    p_offset INTEGER, size_from INTEGER, size_to INTEGER, price_from INTEGER, price_to INTEGER, m2_price_from INTEGER, m2_price_to INTEGER, rental INTEGER, trend float, part TEXT)
 RETURNS SETOF apartment_detail_profitability AS $$
 BEGIN
     RETURN QUERY
@@ -52,6 +59,15 @@ FROM
 WHERE
   a.is_photo = true
   AND d.type = 'apartment'
+  AND a.size > size_from
+  AND a.size < size_to
+  AND a.price > price_from
+  AND a.price < price_to
+  AND a.average_price > m2_price_from
+  AND a.average_price < m2_price_to
+  AND p.rental_count >= rental
+  AND p.competition_trend >= trend
+  AND (part = 'all' OR a.city_part = part)
 ORDER BY
   a.id
 LIMIT p_limit 
@@ -59,7 +75,7 @@ OFFSET p_offset;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION get_apartments_count()
+CREATE OR REPLACE FUNCTION get_apartments_count(size_from INTEGER, size_to INTEGER, price_from INTEGER, price_to INTEGER, m2_price_from INTEGER, m2_price_to INTEGER, rental INTEGER, trend float, part TEXT)
 RETURNS BIGINT AS $$
 DECLARE
     total_count BIGINT;
@@ -72,9 +88,17 @@ BEGIN
         JOIN ad_details d ON a.id = d.ad_id
         JOIN ad_profitability p ON a.id = p.ad_id
     WHERE
-        a.is_photo = true
-        AND d.type = 'apartment';
-
+         a.is_photo = true
+        AND d.type = 'apartment'
+        AND a.size > size_from
+        AND a.size < size_to
+        AND a.price > price_from
+        AND a.price < price_to
+        AND a.average_price > m2_price_from
+        AND a.average_price < m2_price_to
+        AND p.rental_count >= rental
+        AND p.competition_trend >= trend
+        AND (part = 'all' OR a.city_part = part);
     RETURN total_count;
 END;
 $$ LANGUAGE plpgsql;
