@@ -86,7 +86,7 @@ BEGIN
             AND ($9 = ''all'' OR a.city_part = $9)
             AND (LOWER($10) = ''true'' OR a.average_price < p.average_competition)
         ORDER BY
-            %I %s
+            %I %s, a.name
         LIMIT $11 OFFSET $12',
         p_sort_column, p_sort_order
     );
@@ -95,6 +95,7 @@ BEGIN
     USING size_from, size_to, price_from, price_to, m2_price_from, m2_price_to, rental, trend, part, low_price, p_limit, p_offset;
 END;
 $$ LANGUAGE plpgsql;
+
 
 
 CREATE OR REPLACE FUNCTION get_apartments_count(
