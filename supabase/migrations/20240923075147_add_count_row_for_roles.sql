@@ -1,0 +1,3 @@
+ALTER TABLE user_roles
+ADD COLUMN date DATE,
+ADD COLUMN count INTEGER;
