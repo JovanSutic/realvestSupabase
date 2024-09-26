@@ -32,6 +32,7 @@ BEGIN
             AND d.type = 'apartment'
             AND d.parking = true
             AND d.lift = true
+            AND p.competition_trend > 0.05
             AND d.floor is not null
             AND d.floor != d.floor_limit
             AND  a.average_price < p.max_competition / 2.1
