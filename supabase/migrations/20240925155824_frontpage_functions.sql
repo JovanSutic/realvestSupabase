@@ -22,6 +22,7 @@ BEGIN
         p.rental_count AS profitability_rental_count,
         p.average_competition AS profitability_average_competition,
         p.ad_id AS profitability_ad_id
+        p.average_rental AS profitability_average_rental
     FROM
         apartments a
         JOIN ad_details d ON a.id = d.ad_id
@@ -63,7 +64,8 @@ BEGIN
         p.competition_trend AS profitability_competition_trend,
         p.rental_count AS profitability_rental_count,
         p.average_competition AS profitability_average_competition,
-        p.ad_id AS profitability_ad_id
+        p.ad_id AS profitability_ad_id,
+        p.average_rental AS profitability_average_rental
     FROM
         apartments a
         JOIN ad_details d ON a.id = d.ad_id
@@ -78,3 +80,5 @@ BEGIN
     LIMIT 5;
 END;
 $$ LANGUAGE plpgsql;
+
+-- ALTER TYPE apartment_detail_profitability ADD ATTRIBUTE profitability_average_rental float
