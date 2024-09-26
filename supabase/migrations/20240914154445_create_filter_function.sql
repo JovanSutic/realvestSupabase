@@ -17,7 +17,8 @@ CREATE TYPE apartment_detail_profitability AS (
     profitability_competition_trend float,
     profitability_rental_count integer,
     profitability_average_competition float,
-    profitability_ad_id bigint
+    profitability_ad_id bigint,
+    profitability_average_rental float
 );
 
 -- DROP FUNCTION get_apartments_with_details_and_profitability(
@@ -67,7 +68,8 @@ BEGIN
             p.competition_trend AS profitability_competition_trend,
             p.rental_count AS profitability_rental_count,
             p.average_competition AS profitability_average_competition,
-            p.ad_id AS profitability_ad_id
+            p.ad_id AS profitability_ad_id,
+            p.average_rental AS profitability_average_rental
         FROM
             apartments a
             JOIN ad_details d ON a.id = d.ad_id
