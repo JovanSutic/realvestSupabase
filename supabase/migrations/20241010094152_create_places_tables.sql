@@ -24,3 +24,8 @@ constraint "add_id"
      foreign key ("add_id") 
      REFERENCES "apartments" ("id")
 );
+
+ALTER TABLE user_roles
+ALTER COLUMN count
+SET DATA TYPE integer[]
+USING ARRAY[count];
