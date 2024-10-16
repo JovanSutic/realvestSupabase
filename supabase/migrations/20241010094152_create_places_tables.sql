@@ -23,6 +23,7 @@ constraint "place_id"
 constraint "add_id"
      foreign key ("add_id") 
      REFERENCES "apartments" ("id")
+     ON DELETE CASCADE
 );
 
 ALTER TABLE user_roles
