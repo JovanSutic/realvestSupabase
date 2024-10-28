@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS "public"."photos"(
     constraint "apartment_id"
      foreign key ("apartment_id") 
      REFERENCES "apartments" ("id")
+     ON DELETE CASCADE
 );
 
 ALTER TABLE apartments
