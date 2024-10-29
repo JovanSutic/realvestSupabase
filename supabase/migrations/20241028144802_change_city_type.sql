@@ -1,5 +1,5 @@
 ALTER TABLE garages
-DROP COLUMN source_id;
+DROP COLUMN IF EXISTS source_id;
 
 ALTER TABLE garages
 ALTER COLUMN city TYPE integer
@@ -11,10 +11,10 @@ FOREIGN KEY (city) REFERENCES cities(id);
 
 
 ALTER TABLE apartments
-DROP COLUMN room_ratio;
+DROP COLUMN IF EXISTS room_ratio;
 
 ALTER TABLE apartments
-DROP COLUMN source_id;
+DROP COLUMN IF EXISTS source_id;
 
 ALTER TABLE apartments
 ALTER COLUMN city TYPE integer
@@ -25,10 +25,10 @@ ADD CONSTRAINT city_id
 FOREIGN KEY (city) REFERENCES cities(id);
 
 ALTER TABLE apartments_archive
-DROP COLUMN source_id;
+DROP COLUMN IF EXISTS source_id;
 
 ALTER TABLE apartments_archive
-DROP COLUMN link;
+DROP COLUMN IF EXISTS link;
 
 ALTER TABLE apartments_archive
 ALTER COLUMN city TYPE integer
@@ -40,7 +40,7 @@ FOREIGN KEY (city) REFERENCES cities(id);
 
 
 ALTER TABLE commercials
-DROP COLUMN source_id;
+DROP COLUMN IF EXISTS source_id;
 
 ALTER TABLE commercials
 ALTER COLUMN city TYPE integer
@@ -52,7 +52,7 @@ FOREIGN KEY (city) REFERENCES cities(id);
 
 
 ALTER TABLE commercials_rentals
-DROP COLUMN source_id;
+DROP COLUMN IF EXISTS source_id;
 
 ALTER TABLE commercials_rentals
 ALTER COLUMN city TYPE integer
@@ -72,7 +72,7 @@ FOREIGN KEY (city) REFERENCES cities(id);
 
 
 ALTER TABLE garages_rentals
-DROP COLUMN source_id;
+DROP COLUMN IF EXISTS source_id;
 
 ALTER TABLE garages_rentals
 ALTER COLUMN city TYPE integer
@@ -84,7 +84,7 @@ FOREIGN KEY (city) REFERENCES cities(id);
 
 
 ALTER TABLE price_action
-DROP COLUMN source_id;
+DROP COLUMN IF EXISTS source_id;
 
 ALTER TABLE price_action
 ALTER COLUMN city TYPE integer
@@ -96,10 +96,10 @@ FOREIGN KEY (city) REFERENCES cities(id);
 
 
 ALTER TABLE rentals
-DROP COLUMN room_ratio;
+DROP COLUMN IF EXISTS room_ratio;
 
 ALTER TABLE rentals
-DROP COLUMN source_id;
+DROP COLUMN IF EXISTS source_id;
 
 ALTER TABLE rentals
 ALTER COLUMN city TYPE integer
