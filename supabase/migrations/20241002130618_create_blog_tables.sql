@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS "public"."blogs_content" (
 constraint "blog_id"
      foreign key ("blog_id") 
      REFERENCES "blogs" ("id")
-)
+);
 
 ALTER TABLE blogs_content
 ADD COLUMN extra TEXT;
