@@ -1,3 +1,16 @@
+CREATE TABLE IF NOT EXISTS opportunities (
+    id SERIAL PRIMARY KEY,
+    apartment_id INTEGER REFERENCES apartments(id),
+    lat DECIMAL(10, 8),
+    lng DECIMAL(11, 8),
+    discount INT,
+    renovation VARCHAR(10),
+    new_rent DECIMAL(10, 2),
+    is_qualified BOOLEAN DEFAULT FALSE,
+    date_created TIMESTAMP DEFAULT NOW(),
+    date_qualified TIMESTAMP DEFAULT NULL
+);
+
 CREATE OR REPLACE FUNCTION get_opportunity_list(
   _size INT,
   _rental_ratio FLOAT
@@ -56,16 +69,3 @@ BEGIN
   ORDER BY rent_ratio DESC;
 END;
 $$ LANGUAGE plpgsql;
-
-CREATE TABLE IF NOT EXISTS opportunities (
-    id SERIAL PRIMARY KEY,
-    apartment_id INTEGER REFERENCES apartments(id),
-    lat DECIMAL(10, 8),
-    lng DECIMAL(11, 8),
-    discount INT,
-    renovation VARCHAR(10),
-    new_rent DECIMAL(10, 2),
-    is_qualified BOOLEAN DEFAULT FALSE,
-    date_created TIMESTAMP DEFAULT NOW(),
-    date_qualified TIMESTAMP DEFAULT NULL
-);
