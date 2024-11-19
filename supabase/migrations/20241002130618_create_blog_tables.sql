@@ -21,3 +21,6 @@ constraint "blog_id"
 
 ALTER TABLE blogs_content
 ADD COLUMN extra TEXT;
+
+ALTER TABLE blogs
+ADD type VARCHAR(256) DEFAULT NULL;
